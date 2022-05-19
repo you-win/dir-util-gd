@@ -105,13 +105,13 @@ func test_get_paths_absolute_path():
 func test_get_paths_bad_directory():
 	var files = DirUtil.get_files_recursive("asdf")
 	
-	assert_true(files.empty())
+	assert_true(files.empty(), "An empty Dictionary should have been returned")
 
 func test_remove_dir():
 	var dir := Directory.new()
 	
 	if not dir.dir_exists(TEMP_DIR):
-		assert_false(true)
+		assert_false(true, "%s does not exist" % TEMP_DIR)
 		return
 	
 	var inner_dir_name := "%s/inner" % TEMP_DIR
@@ -131,7 +131,7 @@ func test_copy_dir():
 	var dir := Directory.new()
 	
 	if not dir.dir_exists(TEMP_DIR):
-		assert_false(true)
+		assert_false(true, "%s does not exist" % TEMP_DIR)
 		return
 	
 	var inner_dir_name := "%s/inner" % TEMP_DIR

@@ -1,0 +1,24 @@
+{
+  "name": "@sometimes_youwin/gut",
+  "version": "7.3.0",
+  "description": "Godot Unit Test. youwin's personal fork of GUT.",
+  "main": "\"\"",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/you-win/Gut.git"
+  },
+  "keywords": [
+    "godot",
+    "godot-engine",
+    "unit-test"
+  ],
+  "author": "bitwes, youwin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/you-win/Gut/issues"
+  },
+  "homepage": "https://github.com/you-win/Gut#readme"
+}

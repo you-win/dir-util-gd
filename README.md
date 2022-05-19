@@ -1,6 +1,7 @@
 # Dir Util GD
 
 [![Chat on Discord](https://img.shields.io/discord/853476898071117865?label=chat&logo=discord)](https://discord.gg/6mcdWWBkrr)
+[![package](https://img.shields.io/badge/package-1.0.0-blue)](https://www.npmjs.com/package/@sometimes_youwin/dir_util)
 
 Directory utils for Godot 3.x.
 

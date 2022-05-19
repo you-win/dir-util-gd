@@ -22,23 +22,23 @@ func after_all():
 # Utils                                                                       #
 #-----------------------------------------------------------------------------#
 
-func assert_eq(a, b, _param = null) -> bool:
-	.assert_eq(a, b)
+func assert_eq(a, b, param = "") -> bool:
+	.assert_eq(a, b, param)
 	return a == b
 
-func assert_true(a, _param = null) -> bool:
-	.assert_true(a)
+func assert_true(a, param = "") -> bool:
+	.assert_true(a, param)
 	return a
 
-func assert_false(a, _param = null) -> bool:
-	.assert_false(a)
+func assert_false(a, param = "") -> bool:
+	.assert_false(a, param)
 	return a
 
-func is_dict_with_size(a, size: int) -> bool:
-	if not assert_eq(typeof(a), TYPE_DICTIONARY):
+func is_dict_with_size(a, size: int, param = "") -> bool:
+	if not assert_eq(typeof(a), TYPE_DICTIONARY, param):
 		return false
 		
-	return assert_eq(a.size(), size)
+	return assert_eq(a.size(), size, param)
 
 #-----------------------------------------------------------------------------#
 # Tests                                                                       #
@@ -120,12 +120,12 @@ func test_remove_dir():
 	dir.make_dir_recursive("%s/dir1" % inner_dir_name)
 	
 	var files = DirUtil.get_files_recursive(inner_dir_name)
-	if not is_dict_with_size(files, 2):
+	if not is_dict_with_size(files, 2, "Should be dict of size 2"):
 		return
 	
-	assert_eq(DirUtil.remove_dir_recursive(inner_dir_name), OK)
+	assert_eq(DirUtil.remove_dir_recursive(inner_dir_name), OK, "Should be able to remove %s recursively" % inner_dir_name)
 
-	assert_false(dir.dir_exists(inner_dir_name))
+	assert_false(dir.dir_exists(inner_dir_name), "%s should no longer exist" % inner_dir_name)
 
 func test_copy_dir():
 	var dir := Directory.new()
@@ -141,25 +141,25 @@ func test_copy_dir():
 	dir.make_dir_recursive("%s/dir1" % inner_dir_name)
 	
 	var files = DirUtil.get_files_recursive(inner_dir_name)
-	if not is_dict_with_size(files, 2):
+	if not is_dict_with_size(files, 2, "Should be dict of size 2"):
 		return
 	
-	if not assert_eq(DirUtil.copy_dir_recursive(inner_dir_name, inner_dir_name_copy), OK):
+	if not assert_eq(DirUtil.copy_dir_recursive(inner_dir_name, inner_dir_name_copy), OK, "Should be able to copy %s to %s recursively" % [inner_dir_name, inner_dir_name_copy]):
 		return
 	
 	files.clear()
 	
-	if not assert_true(dir.dir_exists(inner_dir_name)):
+	if not assert_true(dir.dir_exists(inner_dir_name), "The original dir should still exist"):
 		return
-	if not assert_true(dir.dir_exists(inner_dir_name_copy)):
+	if not assert_true(dir.dir_exists(inner_dir_name_copy), "The new dir should have been created"):
 		return
 	
 	files = DirUtil.get_files_recursive(inner_dir_name_copy)
-	if not is_dict_with_size(files, 2):
+	if not is_dict_with_size(files, 2, "The new dir should have 2 entries in it"):
 		return
 	
-	assert_eq(DirUtil.remove_dir_recursive(inner_dir_name), OK)
-	assert_eq(DirUtil.remove_dir_recursive(inner_dir_name_copy), OK)
+	assert_eq(DirUtil.remove_dir_recursive(inner_dir_name), OK, "Should be able to remove %s recursively" % inner_dir_name)
+	assert_eq(DirUtil.remove_dir_recursive(inner_dir_name_copy), OK, "Should be able to remove %s recursively" % inner_dir_name_copy)
 	
-	assert_false(dir.dir_exists(inner_dir_name))
-	assert_false(dir.dir_exists(inner_dir_name_copy))
+	assert_false(dir.dir_exists(inner_dir_name), "%s should not exist" % inner_dir_name)
+	assert_false(dir.dir_exists(inner_dir_name_copy), "%s should not exist" % inner_dir_name_copy)
